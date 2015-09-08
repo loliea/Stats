@@ -12,6 +12,7 @@ plot(irisDS$Sepal.Length, irisDS$Sepal.Width, col = k.one$cluster)   # Plot colo
 points(k.one$centers, col = 1:3, pch = 3, lwd = 3)   # Plot the centroids
 points(irisDS$Sepal.Length, irisDS$Sepal.Width, col = fact.Species, pch = 8)
 
+## For each of the specy box plot the distribution of each variable using boxplot
 # length - cluster | length - species
 # width - cluster | width - species
 opar <- par()
@@ -21,13 +22,17 @@ boxplot(irisDS$Sepal.Length~k.one$cluster, main = "Sepal Length by Cluster", yla
 boxplot(irisDS$Sepal.Width~irisDS$Species, main = "Sepal Width by Species", ylab = "Width")
 boxplot(irisDS$Sepal.Width~k.one$cluster, main = "Sepal Width by Cluster", ylab = "Width")
 par(opar)
+
+## 2D plot with the cluster with the actual flowers on the left and clusters on the right
 par(mfrow = c(1, 2))
-plot(irisDS[,1:2], col = fact.Species)
-plot(irisDS[,1:2], col = k.one$cluster)
+plot(irisDS[,1:2], col = fact.Species, main = "By flower")
+plot(irisDS[,1:2], col = k.one$cluster, main = "By cluster")
 par(opar)
+
+## 1D plot for length only with the cluster with the actual flowers on the left and clusters on the right
 par(mfrow = c(1, 2))
-stripchart(irisDS$Sepal.Length ~ irisDS$Species, vertical = TRUE, col = unique(fact.Species))
-stripchart(irisDS$Sepal.Length ~ k.one$cluster, vertical = TRUE, col = unique(k.one$cluster))
+stripchart(irisDS$Sepal.Length ~ irisDS$Species, vertical = TRUE, col = unique(fact.Species), main = "By flower")
+stripchart(irisDS$Sepal.Length ~ k.one$cluster, vertical = TRUE, col = unique(k.one$cluster), main = "By cluster")
 par(opar)
 
 # length - cluster | length - species
@@ -99,3 +104,5 @@ for (i in 3:nrow(ka)) {
 }
 plot(x[3:nrow(ka)], type="l", main = "Improvement between two iterrations (larger the better)")
 suppressWarnings(par(opar))
+
+## looks like optimimum is 2 as this is where there is hte largest improvement 
